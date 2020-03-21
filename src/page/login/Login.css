@@ -1,0 +1,29 @@
+.Login{
+    text-align: center;
+   width:450px;
+    height: 310px;
+    /* margin:auto; */
+}
+.header{
+    -webkit-app-region: drag;
+    width: 450px;
+    height: 100px;
+    background-color: #1890FF;
+}
+.form{
+    text-align: center;
+    width: 450px;
+    height: 150px;
+    margin-top: 40px;
+    padding-left: 80px;
+    padding-right: 80px;
+	/* background-color: #fbfdff; */
+}
+
+.titleButton{
+    -webkit-app-region: no-drag;
+    width: 100px;
+    height: 100px;
+    float: right;
+}
+
