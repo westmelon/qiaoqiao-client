@@ -1,0 +1,68 @@
+{
+  "options": {
+    "java_package": "com.neo.qiaoqiaochat.model.protobuf",
+    "java_outer_classname": "QiaoQiaoHua"
+  },
+  "nested": {
+    "Model": {
+      "fields": {
+        "cmd": {
+          "type": "uint32",
+          "id": 1
+        },
+        "msgType": {
+          "type": "uint32",
+          "id": 2
+        },
+        "timestamp": {
+          "type": "uint64",
+          "id": 3
+        },
+        "textContent": {
+          "type": "string",
+          "id": 4
+        },
+        "mediaType": {
+          "type": "uint32",
+          "id": 5
+        },
+        "mediaContent": {
+          "type": "bytes",
+          "id": 6
+        },
+        "groupId": {
+          "type": "string",
+          "id": 7
+        },
+        "sender": {
+          "type": "string",
+          "id": 8
+        },
+        "receiver": {
+          "type": "string",
+          "id": 9
+        },
+        "token": {
+          "type": "string",
+          "id": 10
+        },
+        "appKey": {
+          "type": "string",
+          "id": 11
+        },
+        "sign": {
+          "type": "string",
+          "id": 12
+        },
+        "clientType": {
+          "type": "uint32",
+          "id": 13
+        },
+        "clientVersion": {
+          "type": "string",
+          "id": 14
+        }
+      }
+    }
+  }
+}

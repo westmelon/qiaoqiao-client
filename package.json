@@ -10,6 +10,8 @@
     "babel-plugin-import": "^1.13.0",
     "customize-cra": "^0.9.1",
     "electron": "^8.1.1",
+    "google-protobuf": "^3.11.4",
+    "protobufjs": "^6.8.9",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.1",
