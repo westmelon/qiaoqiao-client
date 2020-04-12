@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, Form, Input, Checkbox } from 'antd';
-import websocket from "../components/websocket";
+import websocketClient from "../components/websocket/websocketClient.js";
 import qiaoqiaohua from "../protobuf/qiaoqiaohua";
-console.log(qiaoqiaohua)
-const socket = null;
-
+// const socket = null;
+console.log(websocketClient);
 function OJBK() {
     return <WSFrame />
 }
@@ -15,49 +14,64 @@ class WSFrame extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: "111",
-            msg: "111"
+            url: "ws://127.0.0.1:8800/ws",
+            account:"",
+            receiver:"",
+            token:"",
+            msg: "哈哈干就完事了 奥利给",
+            
         }
     }
 
     handleConnectClick() {
-        console.log(this.state.url);
+        let url = this.state.url;
+        let instance = websocketClient.getInstance();
+        instance.createClient(url); 
+        this.socket = instance.getClient();
+        console.log(this.socket);
 
-        this.socket = new websocket({
-            socketUrl: this.state.url,
-            socketMessage: (msg) => {
-                console.log(msg)
-            },
-            socketClose: (msg) => {
-                console.info("关闭");
-            },
-            socketError: () => {
-                console.info("连接建立失败");
-
-            },
-            socketOpen: () => {
-                console.info("开始订单监控");
-            }
-        });
-        try {
-            this.socket.connection();
-        } catch (e) {
-            // 捕获异常，防止js error
-            console.log(e);
-        }
+        instance.addEventListener(this.ppEvent);
     }
-    
+
+    ppEvent(msg){
+        console.log('啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊');
+    }
+
 
     handleSubmitClick() {
         console.log(this.state.msg);
-        console.log(qiaoqiaohua);
         var param = qiaoqiaohua.Model.create();
-        param.cmd=0;
+        param.cmd = 5;
+        param.msgType = 0;
+        param.timestamp = 121242313;
+        param.groupId = "";
+        param.sender = this.state.account;
+        param.receiver = this.state.receiver;
+        param.token= this.state.token;
+        console.log('send msg')
         console.log(param)
         var buf = qiaoqiaohua.Model.encode(param).finish();
-        console.log(buf)
         this.socket.sendMessage(buf);
     }
+
+    handleLoginClick() {
+        console.log(this.state.msg);
+        //先试验一下登录吧= =
+        var param = qiaoqiaohua.Model.create();
+        param.cmd = 0;
+        param.msgType = 0;
+        param.timestamp = 121242313;
+        param.groupId = "";
+        param.sender = this.state.account;
+        param.receiver = this.state.receiver;
+        param.token= this.state.token;
+        console.log('login......')
+        console.log(param)
+        var buf = qiaoqiaohua.Model.encode(param).finish();
+        this.socket.sendMessage(buf);
+    }
+
+
     handleChange(event) {
         this.setState({
             url: event.target.value
@@ -68,6 +82,21 @@ class WSFrame extends React.Component {
             msg: event.target.value
         })
     }
+    handleChange3(event) {
+        this.setState({
+            account: event.target.value
+        })
+    }
+    handleChange4(event) {
+        this.setState({
+            token: event.target.value
+        })
+    }
+    handleChange5(event) {
+        this.setState({
+            receiver: event.target.value
+        })
+    }
     render() {
         return (
 
@@ -75,8 +104,12 @@ class WSFrame extends React.Component {
                 <Input placeholder="输入ws地址" value={this.state.url} onChange={this.handleChange.bind(this)}></Input>
                 <div>{this.state.url}</div>
                 <Button type="primary" onClick={() => this.handleConnectClick()}>连接</Button>
-
+                <Input placeholder="登录账号" value={this.state.account} onChange={this.handleChange3.bind(this)}></Input>
+                <Input placeholder="token" value={this.state.token} onChange={this.handleChange4.bind(this)}></Input>
+                <Button type="primary" onClick={() => this.handleLoginClick()}>登录</Button>
+                
                 <Input placeholder="选择要发送的内容" value={this.state.msg} onChange={this.handleChange2.bind(this)}></Input>
+                <Input placeholder="发送给谁" value={this.state.receiver} onChange={this.handleChange5.bind(this)}></Input>
                 <Button type="primary" onClick={() => this.handleSubmitClick()}>发送</Button>
             </div>
         );

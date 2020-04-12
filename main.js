@@ -59,6 +59,8 @@ function cteateChatWindow() {
     })
     chatWindow.loadURL('http://localhost:3000/#/chess')
 }
+
+
 makeSingleInstance();
 //app主进程的事件和方法
 app.on('ready', () => {
